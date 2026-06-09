@@ -1,0 +1,292 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Digital Sanctuary | Journal Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f3fffe",
+                    "inverse-primary": "#a9cdcd",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#002020",
+                    "surface": "#fcf9f8",
+                    "on-tertiary-fixed-variant": "#494642",
+                    "outline": "#717878",
+                    "surface-container-low": "#f6f3f2",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "primary": "#406262",
+                    "secondary-fixed-dim": "#c8c6c3",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-surface-variant": "#414848",
+                    "on-tertiary-fixed": "#1d1b18",
+                    "on-secondary-fixed-variant": "#474745",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#1c1c1a",
+                    "on-primary-fixed-variant": "#2a4c4d",
+                    "surface-container-high": "#eae7e7",
+                    "tertiary": "#5e5c57",
+                    "tertiary-container": "#77746f",
+                    "tertiary-fixed-dim": "#cac6c0",
+                    "surface-container-highest": "#e4e2e1",
+                    "outline-variant": "#c1c8c7",
+                    "surface-tint": "#426464",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e2e1",
+                    "secondary-fixed": "#e5e2df",
+                    "surface-container": "#f0eded",
+                    "tertiary-fixed": "#e7e2dc",
+                    "primary-fixed": "#c5eae9",
+                    "secondary-container": "#e2dfdc",
+                    "background": "#fcf9f8",
+                    "secondary": "#5f5e5c",
+                    "inverse-surface": "#303030",
+                    "on-secondary-container": "#636260",
+                    "on-tertiary-container": "#fffbff",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1c1c",
+                    "surface-bright": "#fcf9f8",
+                    "primary-fixed-dim": "#a9cdcd",
+                    "error": "#ba1a1a",
+                    "primary-container": "#587b7b",
+                    "on-surface": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "section-gap": "64px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "unit": "8px",
+                    "container-max": "800px"
+            },
+            "fontFamily": {
+                    "entry-body": ["Source Serif 4"],
+                    "display-lg": ["Source Serif 4"],
+                    "metadata": ["Inter"],
+                    "ui-label-sm": ["Inter"],
+                    "headline-md": ["Source Serif 4"],
+                    "display-lg-mobile": ["Source Serif 4"],
+                    "ui-label-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "entry-body": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "metadata": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "ui-label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "ui-label-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8; /* secondary_color / Parchment equivalent */
+            color: #1b1c1c;
+        }
+        .writing-canvas {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .soft-elevation {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            border-bottom: 2px solid #406262;
+        }
+    </style>
+</head>
+<body class="font-metadata text-ui-label-lg antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-md">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-headline-md text-primary tracking-tight">Digital Sanctuary</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-primary border-b-2 border-primary pb-1 font-ui-label-lg text-ui-label-lg hover:text-primary transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-secondary font-ui-label-lg text-ui-label-lg hover:text-primary transition-colors duration-300" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low px-3 py-1.5 rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-secondary text-[20px] mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-ui-label-sm font-ui-label-sm w-40 placeholder:text-secondary/50" placeholder="Search entries..." type="text">
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-ui-label-lg text-ui-label-lg scale-95 transition-transform duration-200 hover:scale-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                    New Entry
+                </button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Welcome / Hero Header -->
+<header class="mb-12">
+<p class="font-metadata text-metadata text-secondary uppercase tracking-widest mb-2">Morning, Julian</p>
+<h1 class="font-headline-md text-display-lg-mobile md:text-display-lg text-on-background">Your Private Reflections</h1>
+</header>
+<div class="flex flex-col md:flex-row gap-gutter">
+<!-- Sidebar / Filter Section -->
+<aside class="w-full md:w-48 flex-shrink-0">
+<div class="sticky top-28 space-y-8">
+<section>
+<h3 class="font-metadata text-metadata text-secondary mb-4">SORT BY</h3>
+<div class="flex flex-col gap-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary border-outline-variant focus:ring-primary/20" name="sort" type="radio">
+<span class="text-ui-label-sm text-secondary group-hover:text-primary transition-colors">Latest First</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant focus:ring-primary/20" name="sort" type="radio">
+<span class="text-ui-label-sm text-secondary group-hover:text-primary transition-colors">Oldest First</span>
+</label>
+</div>
+</section>
+<section>
+<h3 class="font-metadata text-metadata text-secondary mb-4">CATEGORIES</h3>
+<div class="flex flex-wrap md:flex-col gap-2">
+<button class="text-left px-3 py-1.5 rounded-lg bg-primary-fixed text-on-primary-fixed-variant text-ui-label-sm font-medium">All Entries</button>
+<button class="text-left px-3 py-1.5 rounded-lg hover:bg-surface-container-low text-secondary text-ui-label-sm transition-colors">Meditation</button>
+<button class="text-left px-3 py-1.5 rounded-lg hover:bg-surface-container-low text-secondary text-ui-label-sm transition-colors">Travel</button>
+<button class="text-left px-3 py-1.5 rounded-lg hover:bg-surface-container-low text-secondary text-ui-label-sm transition-colors">Gratitude</button>
+<button class="text-left px-3 py-1.5 rounded-lg hover:bg-surface-container-low text-secondary text-ui-label-sm transition-colors">Work-life</button>
+</div>
+</section>
+<section>
+  <h3 class="font-metadata text-metadata text-secondary mb-4 uppercase tracking-widest">THEME</h3>
+  <div class="flex gap-3">
+    <button class="w-6 h-6 rounded-full border-2 border-primary bg-[#a9cdcd] relative flex items-center justify-center" title="Soft Sage">
+      <div class="w-2 h-2 bg-primary rounded-full"></div>
+    </button>
+    <button class="w-6 h-6 rounded-full border border-outline-variant/30 bg-[#E8C5C5] hover:border-primary/50 transition-colors" title="Dusty Rose"></button>
+    <button class="w-6 h-6 rounded-full border border-outline-variant/30 bg-[#D1D1E8] hover:border-primary/50 transition-colors" title="Lavender Mist"></button>
+    <button class="w-6 h-6 rounded-full border border-outline-variant/30 bg-[#C5DCE8] hover:border-primary/50 transition-colors" title="Pale Sky"></button>
+  </div>
+</section></div>
+</aside>
+<!-- Main Entry Grid -->
+<section class="flex-grow">
+<div class="grid grid-cols-1 gap-6">
+<!-- Entry Card 1 -->
+<article class="bg-surface p-8 soft-elevation border border-transparent hover:border-tertiary/20 transition-all group relative">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-metadata text-metadata text-secondary uppercase tracking-tighter">October 24, 2024</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">The stillness of the lake</h2>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors text-secondary" title="Edit">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container/30 hover:text-error rounded-full transition-colors text-secondary" title="Delete">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<p class="font-entry-body text-entry-body text-on-surface-variant line-clamp-3">
+                            The morning fog clung to the water like a heavy velvet blanket. I sat there for nearly an hour, watching the ripple of a single duck moving slowly across the silver surface. It felt like time had actually stopped, or at least slowed down enough for me to breathe again...
+                        </p>
+<div class="mt-6 flex items-center gap-3">
+<span class="px-2 py-1 bg-surface-container-highest text-secondary text-ui-label-sm rounded lowercase">#meditation</span>
+<span class="px-2 py-1 bg-surface-container-highest text-secondary text-ui-label-sm rounded lowercase">#nature</span>
+</div>
+</article>
+<!-- Entry Card 2 -->
+<article class="bg-surface p-8 soft-elevation border border-transparent hover:border-tertiary/20 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-metadata text-metadata text-secondary uppercase tracking-tighter">October 21, 2024</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Fragmented thoughts on growth</h2>
+</div>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-error-container/30 hover:text-error rounded-full transition-colors text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<p class="font-entry-body text-entry-body text-on-surface-variant line-clamp-3">
+                            Growth isn't linear. Some days it feels like standing still, and other days it feels like a sudden leap. Today was a standing-still day. I read back through my entries from last year and realized how much the language of my internal monologue has shifted from doubt to a quiet confidence.
+                        </p>
+<div class="mt-6 flex items-center gap-3">
+<span class="px-2 py-1 bg-surface-container-highest text-secondary text-ui-label-sm rounded lowercase">#growth</span>
+</div>
+</article>
+<!-- Entry Card 3 (Empty State/Add prompt) -->
+<article class="border-2 border-dashed border-outline-variant p-8 flex flex-col items-center justify-center text-center py-16 hover:bg-surface-container-low/30 transition-colors cursor-pointer group">
+<div class="w-12 h-12 bg-surface-container-highest rounded-full flex items-center justify-center mb-4 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]" data-icon="edit_note">edit_note</span>
+</div>
+<p class="font-headline-md text-headline-md text-secondary">What's on your mind today?</p>
+<p class="text-ui-label-sm text-secondary/60 mt-1">Start a new reflection and capture the moment.</p>
+</article>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface dark:bg-surface border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto gap-gutter">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="font-display-lg text-headline-md text-primary dark:text-primary-fixed-dim">Digital Sanctuary</span>
+<p class="font-entry-body text-ui-label-sm text-secondary dark:text-secondary-fixed-dim opacity-80">© 2024 Digital Sanctuary. A space for reflection.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-secondary dark:text-secondary-fixed-dim font-ui-label-sm text-ui-label-sm hover:text-primary dark:hover:text-primary-fixed underline decoration-1 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-ui-label-sm text-ui-label-sm hover:text-primary dark:hover:text-primary-fixed underline decoration-1 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-ui-label-sm text-ui-label-sm hover:text-primary dark:hover:text-primary-fixed underline decoration-1 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for hover effects on cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Simple search focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput?.parentElement;
+        
+        if (searchInput && searchContainer) {
+            searchInput.addEventListener('focus', () => {
+                searchContainer.classList.add('border-primary/50');
+                searchContainer.classList.add('shadow-sm');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchContainer.classList.remove('border-primary/50');
+                searchContainer.classList.remove('shadow-sm');
+            });
+        }
+    </script>
+
+
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Sanctuary | Writing Canvas</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#f3fffe",
+                        "inverse-primary": "#a9cdcd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002020",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#494642",
+                        "outline": "#717878",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "primary": "#406262",
+                        "secondary-fixed-dim": "#c8c6c3",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-surface-variant": "#414848",
+                        "on-tertiary-fixed": "#1d1b18",
+                        "on-secondary-fixed-variant": "#474745",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#1c1c1a",
+                        "on-primary-fixed-variant": "#2a4c4d",
+                        "surface-container-high": "#eae7e7",
+                        "tertiary": "#5e5c57",
+                        "tertiary-container": "#77746f",
+                        "tertiary-fixed-dim": "#cac6c0",
+                        "surface-container-highest": "#e4e2e1",
+                        "outline-variant": "#c1c8c7",
+                        "surface-tint": "#426464",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e2e1",
+                        "secondary-fixed": "#e5e2df",
+                        "surface-container": "#f0eded",
+                        "tertiary-fixed": "#e7e2dc",
+                        "primary-fixed": "#c5eae9",
+                        "secondary-container": "#e2dfdc",
+                        "background": "#fcf9f8",
+                        "secondary": "#5f5e5c",
+                        "inverse-surface": "#303030",
+                        "on-secondary-container": "#636260",
+                        "on-tertiary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1b1c1c",
+                        "surface-bright": "#fcf9f8",
+                        "primary-fixed-dim": "#a9cdcd",
+                        "error": "#ba1a1a",
+                        "primary-container": "#587b7b",
+                        "on-surface": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "section-gap": "64px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "unit": "8px",
+                        "container-max": "800px"
+                    },
+                    "fontFamily": {
+                        "entry-body": ["Source Serif 4"],
+                        "display-lg": ["Source Serif 4"],
+                        "metadata": ["Inter"],
+                        "ui-label-sm": ["Inter"],
+                        "headline-md": ["Source Serif 4"],
+                        "display-lg-mobile": ["Source Serif 4"],
+                        "ui-label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "entry-body": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "metadata": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "ui-label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "ui-label-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .writing-canvas textarea::placeholder {
+            color: #c1c8c7;
+        }
+        .writing-canvas textarea:focus {
+            outline: none;
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .distraction-free-mode .top-app-bar {
+            opacity: 0.1;
+            transition: opacity 0.5s ease;
+        }
+        .distraction-free-mode .top-app-bar:hover {
+            opacity: 1;
+        }
+        .floating-bar {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e7e2dc;
+        }
+    </style>
+</head>
+<body class="font-entry-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md transition-all duration-500 top-app-bar">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<a class="font-display-lg text-display-lg-mobile md:text-headline-md text-primary tracking-tight scale-95 transition-transform duration-200 hover:opacity-80" href="#">
+                    Digital Sanctuary
+                </a>
+</div>
+<nav class="hidden md:flex items-center gap-gutter">
+<a class="text-secondary font-ui-label-lg text-ui-label-lg hover:text-primary transition-colors duration-300" href="#">Dashboard</a>
+<a class="text-secondary font-ui-label-lg text-ui-label-lg hover:text-primary transition-colors duration-300" href="#">Profile</a>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-ui-label-lg text-ui-label-lg transition-transform active:scale-95 duration-200">
+                    New Entry
+                </button>
+</nav>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-[120px] pb-32 px-margin-mobile md:px-0 max-w-container-max mx-auto fade-in">
+<section class="writing-canvas flex flex-col gap-unit">
+<!-- Metadata & Date -->
+<div class="flex items-center gap-4 mb-section-gap">
+<span class="font-metadata text-metadata text-secondary tracking-widest uppercase">October 24, 2023</span>
+<div class="h-px flex-grow bg-outline-variant/30"></div>
+<div class="flex items-center gap-2 text-secondary/60">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 0;">cloud_done</span>
+<span class="font-metadata text-metadata italic">Auto-saved</span>
+</div>
+</div>
+<!-- Title Field -->
+<div class="relative group">
+<input class="w-full bg-transparent border-none p-0 font-headline-md text-headline-md md:font-display-lg md:text-display-lg text-on-background focus:ring-0 placeholder:text-outline-variant/50 placeholder:italic transition-all duration-300" placeholder="The title of your thoughts..." type="text"/>
+</div>
+<!-- Writing Space -->
+<div class="mt-gutter">
+<textarea class="w-full min-h-[500px] bg-transparent border-none p-0 font-entry-body text-entry-body text-on-surface-variant leading-relaxed focus:ring-0 resize-none placeholder:text-outline-variant/40" id="journal-input" placeholder="Begin your reflection here. Let the words flow without judgment..."></textarea>
+</div>
+</section>
+</main>
+<!-- Floating Action Bar -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-40px)] max-w-[500px]">
+<div class="floating-bar bg-surface-container-lowest/90 backdrop-blur-xl rounded-full px-6 py-3 flex items-center justify-between gap-gutter">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-secondary font-ui-label-lg text-ui-label-lg hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[20px]">format_size</span>
+<span class="hidden sm:inline">Style</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/40"></div>
+<div class="text-secondary font-metadata text-metadata flex flex-col">
+<span id="word-count">0 words</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-secondary font-ui-label-lg text-ui-label-lg hover:text-error transition-colors px-4 py-2">
+                    Cancel
+                </button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-ui-label-lg text-ui-label-lg hover:bg-primary-container transition-all active:scale-95 shadow-sm">
+                    Save Entry
+                </button>
+</div>
+</div>
+</div>
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 pointer-events-none -z-10 opacity-30">
+
+</div>
+<!-- Footer (Suppressed based on focused state logic, but kept minimal per design guidance if needed) -->
+<footer class="w-full mt-section-gap bg-surface flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto gap-gutter opacity-40 hover:opacity-100 transition-opacity">
+<div class="font-display-lg text-headline-md text-primary tracking-tight">Digital Sanctuary</div>
+<div class="font-entry-body text-entry-body text-secondary text-ui-label-sm font-ui-label-sm">
+            © 2024 Digital Sanctuary. A space for reflection.
+        </div>
+<div class="flex gap-gutter">
+<a class="text-secondary font-ui-label-sm text-ui-label-sm hover:text-primary underline decoration-1 underline-offset-4" href="#">Privacy</a>
+<a class="text-secondary font-ui-label-sm text-ui-label-sm hover:text-primary underline decoration-1 underline-offset-4" href="#">Terms</a>
+</div>
+</footer>
+<script>
+        // Micro-interactions for writing canvas
+        const textArea = document.getElementById('journal-input');
+        const wordCountDisplay = document.getElementById('word-count');
+        const body = document.body;
+
+        // Auto-resize textarea
+        textArea.addEventListener('input', () => {
+            // Simple word count
+            const text = textArea.value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            wordCountDisplay.textContent = `${words} ${words === 1 ? 'word' : 'words'}`;
+        });
+
+        // Distraction-free mode on focus
+        textArea.addEventListener('focus', () => {
+            body.classList.add('distraction-free-mode');
+        });
+
+        textArea.addEventListener('blur', () => {
+            // Keep it if there's text, otherwise release
+            if (textArea.value.length === 0) {
+                body.classList.remove('distraction-free-mode');
+            }
+        });
+
+        // Atmospheric subtle background parallax-ish effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            // You can use these values to subtly shift elements or pass to a shader
+        });
+
+        // Intentionality: Prompt to save if trying to leave with unsaved changes
+        window.onbeforeunload = function() {
+            if (textArea.value.length > 0) {
+                return "Your entry hasn't been saved yet. Stay and finish your reflection?";
+            }
+        };
+    </script>
+</body></html>
