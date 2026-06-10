@@ -12,7 +12,21 @@
     input:focus { outline: none; border-bottom-color: #406262 !important; }
 </style>
 </head>
-<body class="bg-surface text-on-surface">
+<body class="bg-surface text-on-surface relative min-h-screen">
+
+<div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden">
+    <div class="bg-white p-8 rounded border border-stone-200 max-w-sm w-full mx-4 shadow-xl text-center transform scale-95 transition-all duration-300">
+        <div id="modalIconContainer" class="w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-4">
+            <span id="modalIcon" class="material-symbols-outlined text-3xl">done</span>
+        </div>
+        <h3 id="modalTitle" class="text-xl font-serif font-semibold text-stone-900 mb-2">Status</h3>
+        <p id="modalMessage" class="text-sm text-stone-600 mb-6 leading-relaxed">Message placeholder.</p>
+        <button id="modalBtn" class="w-full bg-stone-800 text-white text-sm py-2 px-4 rounded font-medium transition-colors">
+            Continue
+        </button>
+    </div>
+</div>
+
 <main class="min-h-screen flex flex-col md:flex-row items-stretch">
 <section class="relative w-full md:w-1/2 min-h-[300px] md:min-h-screen flex items-center justify-center overflow-hidden bg-emerald-950/10">
 <div class="p-8 max-w-md text-center md:text-left">
@@ -35,7 +49,55 @@
 </div>
 </section>
 </main>
+
 <script>
+    // Grab elements needed to control the Pop-Up UI
+    const modal = document.getElementById('statusModal');
+    const modalIconContainer = document.getElementById('modalIconContainer');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalBtn = document.getElementById('modalBtn');
+
+    let postModalRedirectURL = null;
+
+    // Helper function to show custom stylized pop-up window
+    function showModal(status, title, message, redirectURL = null) {
+        postModalRedirectURL = redirectURL;
+        
+        // Reset and style based on status state
+        if (status === 'success') {
+            modalIconContainer.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-4 bg-emerald-50 text-emerald-700";
+            modalIcon.textContent = "done";
+            modalBtn.className = "w-full bg-emerald-800 text-white text-sm py-2 px-4 rounded font-medium hover:bg-emerald-900 transition-colors";
+        } else {
+            modalIconContainer.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-4 bg-red-50 text-red-700";
+            modalIcon.textContent = "gpp_bad";
+            modalBtn.className = "w-full bg-red-700 text-white text-sm py-2 px-4 rounded font-medium hover:bg-red-800 transition-colors";
+        }
+
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+        
+        // Make modal visible
+        modal.classList.remove('hidden');
+    }
+
+    // Modal action click event logic
+    modalBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        if (postModalRedirectURL) {
+            window.location.href = postModalRedirectURL;
+        }
+    });
+
+    // Check if the user just registered from Register.html
+    // If they did, show a friendly confirmation window right on arrival!
+    if (document.referrer.includes('Register.html')) {
+        showModal('success', 'Space Registered', 'Your sanctuary container has been created. Use your credentials to enter your space.');
+    }
+
+    // Handle Login authentication routine with pop-up output windows
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const emailInput = document.getElementById('email').value;
@@ -43,17 +105,15 @@
         const savedUser = JSON.parse(localStorage.getItem('sanctuaryUser'));
 
         if (!savedUser) {
-            alert('No account found on this machine. Please register first!');
-            window.location.href = './Register.html';
+            showModal('error', 'Access Denied', 'No registered account found on this machine asset data pool.', './Register.html');
             return;
         }
 
         if (emailInput === savedUser.email && passwordInput === savedUser.password) {
             localStorage.setItem('isLoggedIn', 'true');
-            alert('Access Granted. Welcome back.');
-            window.location.href = './Dashboard.html';
+            showModal('success', 'Access Granted', 'Welcome back to your safe space. Loading reflection matrix stream...', './Dashboard.html');
         } else {
-            alert('Credentials do not align. Access denied.');
+            showModal('error', 'Access Denied', 'The email or security key parameters are incorrect. Reflection entry denied.');
         }
     });
 </script>
