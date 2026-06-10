@@ -91,17 +91,11 @@
         }
     });
 
-    // Check if the user just registered from Register.html
-    // If they did, show a friendly confirmation window right on arrival!
-    if (document.referrer.includes('Register.html')) {
-        showModal('success', 'Space Registered', 'Your sanctuary container has been created. Use your credentials to enter your space.');
-    }
-
     // Handle Login authentication routine with pop-up output windows
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        const emailInput = document.getElementById('email').value;
-        const passwordInput = document.getElementById('password').value;
+        const emailInput = document.getElementById('email').value.trim();
+        const passwordInput = document.getElementById('password').value.trim();
         const savedUser = JSON.parse(localStorage.getItem('sanctuaryUser'));
 
         if (!savedUser) {
