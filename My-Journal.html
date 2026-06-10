@@ -58,7 +58,23 @@
             list.forEach(entry => {
                 const article = document.createElement('article');
                 article.className = "bg-white p-6 rounded border border-stone-200 shadow-sm relative";
-                article.innerHTML = `<div class="flex justify-between items-start mb-2"><div><span class="text-xs text-emerald-800 block">${entry.date}</span><h2 class="text-xl font-serif font-medium text-stone-900 mt-1">${entry.title}</h2></div><button onclick="deleteEntry(${entry.id})" class="text-stone-400 hover:text-red-600 text-sm"><span class="material-symbols-outlined">delete</span></button></div><p class="text-stone-700 whitespace-pre-wrap leading-relaxed text-sm">${entry.content}</p>`;
+                article.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <span class="text-xs text-emerald-800 block">${entry.date}</span>
+                            <h2 class="text-xl font-serif font-medium text-stone-900 mt-1">${entry.title}</h2>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="editEntry(${entry.id})" class="text-stone-400 hover:text-emerald-800 text-sm" title="Edit Reflection">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            <button onclick="deleteEntry(${entry.id})" class="text-stone-400 hover:text-red-600 text-sm" title="Delete Reflection">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-stone-700 whitespace-pre-wrap leading-relaxed text-sm">${entry.content}</p>
+                `;
                 container.appendChild(article);
             });
         }
@@ -68,6 +84,11 @@
             const filtered = entries.filter(item => item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q));
             displayEntries(filtered);
         });
+
+        // Redirects to writing canvas with the target entry ID passed in the URL
+        window.editEntry = function(id) {
+            window.location.href = `./New-entry.html?edit=${id}`;
+        };
 
         window.deleteEntry = function(id) {
             if (confirm("Delete this reflection permanently?")) {
@@ -84,4 +105,5 @@
 
         displayEntries(entries);
     </script>
-</body></html>
+</body>
+</html>
