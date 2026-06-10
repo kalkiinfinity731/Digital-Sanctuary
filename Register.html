@@ -12,7 +12,22 @@
     input:focus { outline: none; border-bottom-color: #406262 !important; }
 </style>
 </head>
-<body class="bg-surface text-on-surface">
+<body class="bg-surface text-on-surface relative min-h-screen">
+
+<div id="statusModal" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/40 backdrop-blur-sm hidden">
+    <div class="bg-[#fcf9f8] p-8 rounded border border-emerald-900/10 max-w-sm w-full mx-4 shadow-2xl text-center transform scale-95 transition-all duration-300">
+        <div id="modalIconContainer" class="w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-5 shadow-inner bg-emerald-50 text-emerald-700">
+            <span id="modalIcon" class="material-symbols-outlined text-3xl">spa</span>
+        </div>
+        <h3 id="modalTitle" class="text-2xl font-serif font-medium text-emerald-900 mb-2">Sanctuary Status</h3>
+        <p id="modalMessage" class="text-sm text-stone-600 mb-6 leading-relaxed font-sans px-2">Processing profile matrix configuration...</p>
+        <button id="modalBtn" class="w-full bg-emerald-800 text-white text-sm py-3 px-4 rounded font-medium shadow-sm transition-all hover:bg-emerald-900 flex items-center justify-center gap-2">
+            <span>Continue</span>
+            <span class="material-symbols-outlined text-[18px]">east</span>
+        </button>
+    </div>
+</div>
+
 <main class="min-h-screen flex flex-col md:flex-row items-stretch">
 <section class="relative w-full md:w-1/2 min-h-[400px] md:min-h-screen flex items-center justify-center overflow-hidden bg-emerald-950/10">
 <div class="p-8 max-w-md text-center md:text-left">
@@ -36,17 +51,68 @@
 </div>
 </section>
 </main>
+
 <script>
+    // Grab elements needed to control the Pop-Up UI
+    const modal = document.getElementById('statusModal');
+    const modalIconContainer = document.getElementById('modalIconContainer');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalBtn = document.getElementById('modalBtn');
+
+    let postModalRedirectURL = null;
+
+    // Helper function to show custom stylized pop-up window
+    function showModal(status, title, message, redirectURL = null) {
+        postModalRedirectURL = redirectURL;
+        
+        // Reset and style based on status state
+        if (status === 'success') {
+            modalIconContainer.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-5 shadow-inner bg-emerald-50 text-emerald-700";
+            modalIcon.textContent = "done";
+            modalBtn.className = "w-full bg-emerald-800 text-white text-sm py-3 px-4 rounded font-medium shadow-sm transition-all hover:bg-emerald-900 flex items-center justify-center gap-2";
+        } else {
+            modalIconContainer.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-5 shadow-inner bg-red-50 text-red-700";
+            modalIcon.textContent = "gpp_bad";
+            modalBtn.className = "w-full bg-red-700 text-white text-sm py-3 px-4 rounded font-medium shadow-sm transition-all hover:bg-red-800 transition-colors flex items-center justify-center gap-2";
+        }
+
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+        
+        // Make modal visible
+        modal.classList.remove('hidden');
+    }
+
+    // Modal action click event logic
+    modalBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        if (postModalRedirectURL) {
+            window.location.href = postModalRedirectURL;
+        }
+    });
+
+    // Form registration block
     document.getElementById('registerForm').addEventListener('submit', function(event) {
         event.preventDefault();
+        
         const userData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value.trim()
         };
+        
+        // Save user to data layer memory
         localStorage.setItem('sanctuaryUser', JSON.stringify(userData));
-        alert('Account created successfully! Redirecting to sign in.');
-        window.location.href = './Login.html';
+        
+        // Display custom styled centered confirmation window modal
+        showModal(
+            'success', 
+            'Space Registered', 
+            'Your sanctuary container has been created successfully. Settle down into your account dashboard next.', 
+            './Login.html'
+        );
     });
 </script>
 </body></html>
